@@ -4,10 +4,17 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=2.99.0"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 1.0"
+    }
   }
 }
 
-# Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {}
+}
+
+provider "azuread" {
+  version = "~> 1.0"
 }
