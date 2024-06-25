@@ -36,3 +36,7 @@ terraform.rc
 # Ignore hcl file
 *.hcl
 set_env.sh
+main copy.tf
+*.out
+.idea/*
+.vscode/*

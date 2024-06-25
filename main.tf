@@ -1,17 +1,18 @@
-# Data block to retrieeve azure app registation
-
-data "azuread_application" "applcation" {
-    display_name = var.service_principlal_name
+# Data block to retrieve the existing Azure AD app registration
+data "azuread_application" "existing_app" {
+  display_name = var.app_registration_name
 }
 
-# Get Obj ID of users to be sp owners
-
+# Get Obj ID of users to be added as owners
 data "azuread_user" "user" {
-  for_each = toset(var.service_principlal_owner)
-  mail = each.value
+# Splitting the owners received as a strings seperated by commas into a list using split function
+  for_each = toset(split(",", var.app_registration_owner))
+  mail     = each.value
 }
 
-resource "azuread_application" "sp" {
-  display_name = var.service_principlal_name
-  owners = [for user in data.azuread_user.user : user.object_id]
+# Assign owners to the existing Azure AD app registration
+resource "azuread_application_owner" "app_owner" {
+  for_each        = data.azuread_user.user
+  application_id  = data.azuread_application.existing_app.id
+  owner_object_id = each.value.object_id
 }

@@ -1,0 +1,46 @@
+name: add-owners-to-app-registrations-in-terraform
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_registration_name:
+        type: string
+        description: "Azure App registration name"
+        required: true
+      app_registration_owner:
+        type: string
+        description: "Azure App registration owners name. Provide as comma separated in case of multiple owners"
+        required: true
+run-name: Adding owners to ${{ inputs.app_registration_name }}
+jobs:
+  add-owners-to-app-registrations-in-terraform:
+    runs-on: ubuntu-latest
+    env:
+      AZURE_CLIENT_ID: ${{ secrets.OWNER_SP_APP_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.OWNER_SP_APP_SECRET }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.0"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -var="app_registration_name=${{ inputs.app_registration_name }}" -var="app_registration_owner=${{ inputs.app_registration_owner }}" -out "plan.out"
+
+      - name: Terraform Apply
+        run: terraform apply --auto-approve
+      
+      - name: Owners added for App registration
+        run: 
+          echo "App registration owners - ${{ inputs.app_registration_owners }}"
+          # Add more steps for applying the Terraform plan
+      - name: Process Completed
+        run: echo "Completed...."
