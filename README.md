@@ -58,4 +58,4 @@ env:
 
 I used Github secrets on the workflow for authentication.
 
-#### Refer [configuring-the-service-principal-in-terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform)
+####` Refer [configuring-the-service-principal-in-terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform)

@@ -47,10 +47,8 @@ jobs:
           terraform apply --auto-approve "plan.out"
       
       - name: Owners added for App registration
-        env:
-          OWNERS: ${{ github.event.inputs.app_registration_owners }}
         run: |
-          echo "App registration owners - $OWNERS"
+          echo App registration owners - ${{ inputs.app_registration_owner }}
 
       - name: Process Completed
         run: echo "Completed...."
