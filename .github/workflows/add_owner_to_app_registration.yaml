@@ -37,9 +37,14 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -var="app_registration_name=${{ inputs.app_registration_name }}" -var="app_registration_owner=${{ inputs.app_registration_owner }}" -out "plan.out"
-
+      
+      - name: Terraform show
+        run:  terraform show "plan.out"
+        
       - name: Terraform Apply
-        run: terraform apply --auto-approve
+        run: |
+          ls -la 
+          terraform apply --auto-approve "plan.out"
       
       - name: Owners added for App registration
         run: 
