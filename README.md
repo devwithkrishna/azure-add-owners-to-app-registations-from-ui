@@ -10,7 +10,7 @@ add owners to azure app registrations from github workflow
 | input name | description | type | mandatory |
 |------------|------------|-----|-------------|
 | app_registration_name | Azure App registration name | string | :heavy_check_mark: |
-| app_registration_owner | App registration owners names | list of string | :heavy_check_mark: |
+| app_registration_owner | App registration owners names | string | :heavy_check_mark: |
 
 # Terraform commands and How to run the code locally
 
