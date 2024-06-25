@@ -27,3 +27,35 @@ add owners to azure app registrations from github workflow
 * We wont be able to add same owner multiple times
 * Azure active directory user shuld have a proper mail id available
   
+# How to run as a github workflow
+
+1. Go to your cloned repo and then to actions tab
+
+    ![alt text](workflow.png)
+2. Choose the workflow `add_owner_to_app_registration.yaml` on left side
+   
+3. Next click on `Run Workflow` and enter the input parameters required
+   
+    ![alt text](github_workflow_inputs.jpeg)
+
+4. Click on `Run Workflow`
+
+5. After the job is completedd, The owners will be added to app registration
+
+# Credentials needed
+
+**authentication to azure is done using service principal**
+
+```
+env:
+    ARM_CLIENT_ID: ${{ secrets.OWNER_SP_APP_ID }}
+    ARM_CLIENT_SECRET: ${{ secrets.OWNER_SP_APP_SECRET }}
+    ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+```
+
+`ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_TENANT_ID`, `ARM_SUBSCRIPTION_ID` are required Environment variables.
+
+I used Github secrets on the workflow for authentication.
+
+#### Refer [configuring-the-service-principal-in-terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform)

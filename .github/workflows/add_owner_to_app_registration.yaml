@@ -40,15 +40,14 @@ jobs:
       
       - name: Terraform show
         run:  terraform show "plan.out"
-        
+
       - name: Terraform Apply
         run: |
           ls -la 
           terraform apply --auto-approve "plan.out"
       
       - name: Owners added for App registration
-        run: 
-          echo "App registration owners - ${{ inputs.app_registration_owners }}"
-          # Add more steps for applying the Terraform plan
+        run: echo "App registration owners - ${{ github.event.inputs.app_registration_owners }}"
+
       - name: Process Completed
         run: echo "Completed...."
